@@ -1,0 +1,12 @@
+<div class='jumbotron bg-dark d-flex justify-content-left flex-column'>
+    <h1 class='text-light'>Login</h1>
+    <div class='form-inline'>
+        <%= form_tag '/login' do %>
+        <p class='text-light'>Username</p>
+        <%= text_field_tag :username %>
+        <p class='text-light'>Password</p>
+        <%= password_field_tag :password%>
+        <%= submit_tag "Login", :class => "btn btn-secondary btn-outline-light" %>
+        <%end%>
+    </div>
+</div>

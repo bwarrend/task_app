@@ -1,0 +1,19 @@
+<% if logged_in? %>
+    <div class='jumbotron bg-dark d-flex justify-content-left'>
+        <h1 class='text-light'>Hello, <%= current_user.username %> </h1>
+    </div>
+    <%= link_to "Logout", '/logout', method: :get, :class => "btn btn-secondary btn-outline-light" %>
+<% else %>
+    <div class='jumbotron bg-dark justify-content-center d-flex'>
+        <div class=''>
+            <h1 class='text-light text-center'>Welcome to My Tasks</h1>
+            <h5 class='text-light text-center'>Log in or sign up to begin</h5>
+            <div class='btn-group justify-content-center d-flex' >
+                <%= link_to "Login", '/login', method: :get, :class => "btn btn-secondary btn-outline-light text-center" %>
+                <%= link_to "Sign Up", '/users/new', method: :get, :class => "btn btn-secondary btn-outline-light text-center" %>
+            </div>
+        </div>
+    </div>
+<%end%>
+
+
