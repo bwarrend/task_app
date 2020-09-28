@@ -6,6 +6,6 @@
 * Cherlyn Kay Alejandro
 * Weiyi Huang
 
-<!-- Click [HERE][1] to visit the current build.
+Click [HERE][1] to visit the current build.
 
-[1]: http://my-tasks.tk "HERE" -->
+[1]: http://my-tasks.tk "HERE"
