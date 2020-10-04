@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :tasks
   resources :users, only: [:new, :create]
   get '', to: 'sessions#welcome'
   get 'login', to: 'sessions#new'
