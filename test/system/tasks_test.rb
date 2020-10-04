@@ -15,6 +15,8 @@ class TasksTest < ApplicationSystemTestCase
     click_on "New Task"
 
     fill_in "Description", with: @task.description
+    fill_in "Due date", with: @task.due_date
+    check "Is complete" if @task.is_complete
     fill_in "Title", with: @task.title
     fill_in "User", with: @task.user_id
     click_on "Create Task"
@@ -28,6 +30,8 @@ class TasksTest < ApplicationSystemTestCase
     click_on "Edit", match: :first
 
     fill_in "Description", with: @task.description
+    fill_in "Due date", with: @task.due_date
+    check "Is complete" if @task.is_complete
     fill_in "Title", with: @task.title
     fill_in "User", with: @task.user_id
     click_on "Update Task"

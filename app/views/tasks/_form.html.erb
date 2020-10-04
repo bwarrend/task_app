@@ -22,9 +22,23 @@
   </div>
 
   <div class="field">
+    <%= form.label :due_date %>
+    <%= form.date_select :due_date %>
+  </div>
+
+  <div class="field">
+    <%= form.label :is_complete %>
+    <%= form.check_box :is_complete %>
+  </div>
+
+  <%
+=begin%>
+ <div class="field">
     <%= form.label :user_id %>
     <%= form.number_field :user_id %>
-  </div>
+  </div> 
+<%
+=end%>
 
   <div class="actions">
     <%= form.submit %>

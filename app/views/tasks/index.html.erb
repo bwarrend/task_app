@@ -7,6 +7,8 @@
     <tr>
       <th>Title</th>
       <th>Description</th>
+      <th>Due date</th>
+      <th>Is complete</th>
       <th>User</th>
       <th colspan="3"></th>
     </tr>
@@ -17,6 +19,8 @@
       <tr>
         <td><%= task.title %></td>
         <td><%= task.description %></td>
+        <td><%= task.due_date %></td>
+        <td><%= task.is_complete %></td>
         <td><%= task.user_id %></td>
         <td><%= link_to 'Show', task %></td>
         <td><%= link_to 'Edit', edit_task_path(task) %></td>

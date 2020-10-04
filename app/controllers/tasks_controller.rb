@@ -25,10 +25,13 @@ class TasksController < ApplicationController
   # POST /tasks.json
   def create
     @task = Task.new(task_params)
+    @task.user_id = current_user.id
+    @task.is_complete = false
+
 
     respond_to do |format|
       if @task.save
-        format.html { redirect_to @task, notice: 'Task was successfully created.' }
+        format.html { redirect_to welcome_path }
         format.json { render :show, status: :created, location: @task }
       else
         format.html { render :new }
@@ -56,7 +59,7 @@ class TasksController < ApplicationController
   def destroy
     @task.destroy
     respond_to do |format|
-      format.html { redirect_to tasks_url, notice: 'Task was successfully destroyed.' }
+      format.html { redirect_to welcome_path }
       format.json { head :no_content }
     end
   end
@@ -69,6 +72,6 @@ class TasksController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def task_params
-      params.require(:task).permit(:title, :description, :user_id)
+      params.require(:task).permit(:title, :description, :due_date, :is_complete, :user_id)
     end
 end

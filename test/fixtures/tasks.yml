@@ -3,9 +3,13 @@
 one:
   title: MyString
   description: MyText
+  due_date: 2020-10-04
+  is_complete: false
   user_id: 1
 
 two:
   title: MyString
   description: MyText
+  due_date: 2020-10-04
+  is_complete: false
   user_id: 1

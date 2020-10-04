@@ -11,9 +11,19 @@
 </p>
 
 <p>
+  <strong>Due date:</strong>
+  <%= @task.due_date %>
+</p>
+
+<p>
+  <strong>Is complete:</strong>
+  <%= @task.is_complete %>
+</p>
+
+<p>
   <strong>User:</strong>
   <%= @task.user_id %>
 </p>
 
 <%= link_to 'Edit', edit_task_path(@task) %> |
-<%= link_to 'Back', tasks_path %>
+<%= link_to 'Back', welcome_path %>

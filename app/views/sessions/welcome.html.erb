@@ -3,6 +3,61 @@
         <h1 class='text-light'>Hello, <%= current_user.username %> </h1>
     </div>
     <%= link_to "Logout", '/logout', method: :get, :class => "btn btn-secondary btn-outline-light" %>
+
+    <%= form_with scope: :task, url: tasks_path, local: true do |f| %>
+
+    
+        <p>
+            <%= f.label :title %>
+            <%= f.text_field :title %>
+        </p>
+
+        <p>
+            <%= f.label :description %>
+            <%= f.text_area :description %>
+        </p>
+
+        <p>
+            <%= f.label :due_date %>
+            <%= f.date_select :due_date %>
+        <p>
+
+            <%= f.submit "Create New"%>
+        </p>
+
+    <% end %>
+
+
+
+                
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Date Created</th>
+                <th>Due Date</th>
+                <th colspan="3"></th>
+            </tr>
+        </thead>
+        
+        <tbody>
+            <% current_user.tasks.each do |task| %>
+            <tr>
+                <td><%= task.title %></td>
+                <td><%= task.description %></td>
+                <td><%= task.created_at.strftime("%Y-%m-%d") %></td>
+                <td><%= task.due_date %></td>
+                <td><%= link_to 'Show', task %></td>
+                <td><%= link_to 'Edit', edit_task_path(task) %></td>
+                <td><%= link_to 'Delete', task, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            </tr>
+            <% end %>
+        </tbody>
+    </table>
+
+
+
 <% else %>
     <div class='jumbotron bg-dark justify-content-center d-flex'>
         <div class=''>
@@ -15,5 +70,7 @@
         </div>
     </div>
 <%end%>
+
+
 
 
