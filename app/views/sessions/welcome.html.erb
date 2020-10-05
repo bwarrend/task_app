@@ -1,60 +1,103 @@
 <% if logged_in? %>
-    <div class='jumbotron bg-dark d-flex justify-content-left'>
-        <h1 class='text-light'>Hello, <%= current_user.username %> </h1>
+    <div class='jumbotron bg-dark d-flex flex-row justify-content-center'>
+        <h1 class='text-light'><strong> <%= current_user.username.capitalize %>'s Tasks! </strong></h1>        
     </div>
-    <%= link_to "Logout", '/logout', method: :get, :class => "btn btn-secondary btn-outline-light" %>
 
-    <%= form_with scope: :task, url: tasks_path, local: true do |f| %>
-
-    
-        <p>
-            <%= f.label :title %>
-            <%= f.text_field :title %>
-        </p>
-
-        <p>
-            <%= f.label :description %>
-            <%= f.text_area :description %>
-        </p>
-
-        <p>
-            <%= f.label :due_date %>
-            <%= f.date_select :due_date %>
-        <p>
-
-            <%= f.submit "Create New"%>
-        </p>
-
-    <% end %>
-
-
-
-                
-    <table>
-        <thead>
+    <table class='table'>
+        <thead class='thead-dark'>
             <tr>
+                <th>Status</th>
                 <th>Title</th>
                 <th>Description</th>
                 <th>Date Created</th>
                 <th>Due Date</th>
-                <th colspan="3"></th>
+                <th colspan="3">Controls</th>
             </tr>
         </thead>
         
         <tbody>
-            <% current_user.tasks.each do |task| %>
-            <tr>
-                <td><%= task.title %></td>
-                <td><%= task.description %></td>
-                <td><%= task.created_at.strftime("%Y-%m-%d") %></td>
-                <td><%= task.due_date %></td>
-                <td><%= link_to 'Show', task %></td>
-                <td><%= link_to 'Edit', edit_task_path(task) %></td>
-                <td><%= link_to 'Delete', task, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <% current_user.tasks.each do |task| %>            
+                <% if task.is_complete %>
+                    <tr class='table-success'>
+                        <td> <strong> DONE! </strong> </td>                      
+                        <td><del><%= task.title %></del></td>
+                        <td><del><%= task.description %></del></td>
+                        <td><del><%= task.created_at.strftime("%Y-%m-%d") %></del></td>
+                        <td><del><%= task.due_date %></del></td>                        
+
+                        <td><%= link_to 'Show', task, :class => 'btn btn-outline-primary' %></td>
+                        <td><%= link_to 'Edit', edit_task_path(task), :class => 'btn btn-outline-warning' %></td>
+                        <td><%= link_to 'Delete', task, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-outline-danger' %></td>
+
+                <% else %>
+                    <tr class='table-secondary'>
+                        <td>Pending</td>
+                        
+                        <td><%= task.title %></td>
+                        <td><%= task.description %></td>
+                        <td><%= task.created_at.strftime("%Y-%m-%d") %></td>
+                        <td><%= task.due_date %></td>
+                        <td><%= link_to 'Show', task, :class => 'btn btn-outline-primary' %></td>
+                        <td><%= link_to 'Edit', edit_task_path(task), :class => 'btn btn-outline-warning' %></td>
+                        <td><%= link_to 'Delete', task, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-outline-danger' %></td>
+                <% end %>
             </tr>
             <% end %>
         </tbody>
     </table>
+
+
+    
+
+    <div class='container'>
+        <div class='row'>
+            <div class='col'>
+            </div>
+            <div class='col card text-white bg-dark'>
+                <div class='card-body'>
+                    <%= form_with scope: :task, url: tasks_path, local: true do |f| %>
+                    <h4 class="card-title d-flex flex-row justify-content-center">Create New Task</h4>
+                    <p class="card-text">
+                        <div class='d-flex flex-row justify-content-center'>
+                            <%= f.label :title %>
+                        </div>
+                        <div class='d-flex flex-row justify-content-center'>
+                            <%= f.text_field :title %>
+                        </div>
+                        <div class='d-flex flex-row justify-content-center'>
+                            <%= f.label :description %>
+                        </div>
+                        <div class='d-flex flex-row justify-content-center'>
+                            <%= f.text_area :description %>
+                        </div>
+                        <div class='d-flex flex-row justify-content-center'>
+                            <%= f.label :due_date %>
+                        </div>
+                        <div class='d-flex flex-row justify-content-center'>
+                            <%= f.date_select :due_date %>
+                        </div>
+                        <div class='d-flex flex-row justify-content-center'>
+                            <%= f.submit "Create New"%>
+                        </div>
+                    </p>
+                    <% end %>
+                    
+                </div>
+            </div>
+
+            <div class='col'>
+            </div>
+        </div>
+    </div>
+
+
+    <div class='d-flex flex-row justify-content-center'>
+            <%= link_to "Logout", '/logout', method: :get, :class => "btn btn-secondary btn-outline-light btn-sm d-flex flex-row justify-content-end" %>
+    </div>
+
+
+
+
 
 
 
@@ -70,7 +113,3 @@
         </div>
     </div>
 <%end%>
-
-
-
-

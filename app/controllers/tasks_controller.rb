@@ -45,13 +45,18 @@ class TasksController < ApplicationController
   def update
     respond_to do |format|
       if @task.update(task_params)
-        format.html { redirect_to @task, notice: 'Task was successfully updated.' }
+        format.html { redirect_to welcome_path }
         format.json { render :show, status: :ok, location: @task }
       else
         format.html { render :edit }
         format.json { render json: @task.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def complete_task(model,id,field,value)
+    @model_var = model.find(id)
+    @model_var.update_attributes(field: value)
   end
 
   # DELETE /tasks/1
