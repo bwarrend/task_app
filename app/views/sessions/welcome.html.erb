@@ -1,38 +1,80 @@
 <% if logged_in? %>
+
+    <%
+
+        users_tasks = current_user.tasks
+
+        #Due Date
+        if current_user.sort_by == 2
+            users_tasks = users_tasks.sort_by { |t| t.due_date }
+
+        #Title
+        elsif current_user.sort_by == 3
+            users_tasks = users_tasks.sort_by { |t| t.title.downcase }
+        
+        #Category
+        elsif current_user.sort_by == 4
+            users_tasks = users_tasks.sort_by { |t| t.category.downcase }
+
+
+        #Description
+        elsif current_user.sort_by == 6
+            users_tasks = users_tasks.sort_by { |t| t.description.downcase }
+
+        #created_at
+        else
+            users_tasks = users_tasks.sort_by { |t| t.created_at }
+        
+        end
+
+    %>
+
+
+    <p> <%= @sort_method %> </p>
+
     <div class='jumbotron bg-dark d-flex flex-row justify-content-center'>
         <h1 class='text-light'><strong> <%= current_user.username.capitalize %>'s Tasks! </strong></h1>        
     </div>
 
+    <%= link_to 'Toggle Complete Tasks', 'toggle_show_complete', :class => 'btn btn-dark' %>
+    <%= link_to 'Toggle Incomplete Tasks', 'toggle_show_incomplete', :class => 'btn btn-dark' %>
+
     <table class='table'>
         <thead class='thead-dark'>
             <tr>
-                <th>Status</th>
-                <th>Title</th>
-                <th>Description</th>
-                <th>Date Created</th>
-                <th>Due Date</th>
-                <th colspan="3">Controls</th>
+                <th class='text-secondary'>Status</th>
+                <th><%= link_to 'Category', 'sort_by_category', :class => 'btn btn-dark' %></th>
+                <th><%= link_to 'Title', 'sort_by_title', :class => 'btn btn-dark' %></th>
+                <th><%= link_to 'Description', 'sort_by_description', :class => 'btn btn-dark' %></th>
+                <th><%= link_to 'Date Created', 'sort_by_created_at', :class => 'btn' %></th>
+                <th><%= link_to 'Due Date', 'sort_by_due_date', :class => 'btn' %></th>
+                <th colspan="3" class='text-secondary'>Controls</th>
             </tr>
         </thead>
         
-        <tbody>
-            <% current_user.tasks.each do |task| %>            
-                <% if task.is_complete %>
-                    <tr class='table-success'>
-                        <td> <strong> DONE! </strong> </td>                      
-                        <td><del><%= task.title %></del></td>
-                        <td><del><%= task.description %></del></td>
-                        <td><del><%= task.created_at.strftime("%Y-%m-%d") %></del></td>
-                        <td><del><%= task.due_date %></del></td>                        
 
-                        <td><%= link_to 'Show', task, :class => 'btn btn-outline-primary' %></td>
-                        <td><%= link_to 'Edit', edit_task_path(task), :class => 'btn btn-outline-warning' %></td>
-                        <td><%= link_to 'Delete', task, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-outline-danger' %></td>
+        <tbody>
+            <% users_tasks.each do |task| %>         
+                <% if task.is_complete %>
+                    <% if current_user.show_complete %>
+                        <tr class='table-success'>
+                            <td> <strong> DONE! </strong> </td>
+                            <td><del><%= task.category %></del></td>                  
+                            <td><del><%= task.title %></del></td>
+                            <td><del><%= task.description %></del></td>
+                            <td><del><%= task.created_at.strftime("%Y-%m-%d") %></del></td>
+                            <td><del><%= task.due_date %></del></td>                        
+
+                            <td><%= link_to 'Show', task, :class => 'btn btn-outline-primary' %></td>
+                            <td><%= link_to 'Edit', edit_task_path(task), :class => 'btn btn-outline-warning' %></td>
+                            <td><%= link_to 'Delete', task, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-outline-danger' %></td>
+                    <% end %>
+                                                
 
                 <% else %>
-                    <tr class='table-secondary'>
-                        <td>Pending</td>
-                        
+                    <% if current_user.show_incomplete %>
+                        <td><%= link_to 'Complete', task, method: :complete, :class => 'btn btn-dark' %></td>
+                        <td><%= task.category %></td> 
                         <td><%= task.title %></td>
                         <td><%= task.description %></td>
                         <td><%= task.created_at.strftime("%Y-%m-%d") %></td>
@@ -40,6 +82,7 @@
                         <td><%= link_to 'Show', task, :class => 'btn btn-outline-primary' %></td>
                         <td><%= link_to 'Edit', edit_task_path(task), :class => 'btn btn-outline-warning' %></td>
                         <td><%= link_to 'Delete', task, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-outline-danger' %></td>
+                    <% end %>
                 <% end %>
             </tr>
             <% end %>
@@ -58,6 +101,12 @@
                     <%= form_with scope: :task, url: tasks_path, local: true do |f| %>
                     <h4 class="card-title d-flex flex-row justify-content-center">Create New Task</h4>
                     <p class="card-text">
+                        <div class='d-flex flex-row justify-content-center'>
+                            <%= f.label :category %>
+                        </div>
+                        <div class='d-flex flex-row justify-content-center'>
+                            <%= f.text_field :category %>
+                        </div>
                         <div class='d-flex flex-row justify-content-center'>
                             <%= f.label :title %>
                         </div>

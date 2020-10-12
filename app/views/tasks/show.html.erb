@@ -25,5 +25,10 @@
   <%= @task.user_id %>
 </p>
 
+<p>
+  <strong>Category: </strong>
+  <%= @task.category %>
+</p>
+
 <%= link_to 'Edit', edit_task_path(@task) %> |
 <%= link_to 'Back', welcome_path %>

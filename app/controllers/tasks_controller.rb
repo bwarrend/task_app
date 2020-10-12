@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
-  before_action :set_task, only: [:show, :edit, :update, :destroy]
+  before_action :set_task, only: [:show, :edit, :update, :destroy, :complete]
 
   # GET /tasks
   # GET /tasks.json
@@ -54,10 +54,10 @@ class TasksController < ApplicationController
     end
   end
 
-  def complete_task(model,id,field,value)
-    @model_var = model.find(id)
-    @model_var.update_attributes(field: value)
-  end
+  # def complete_task(model,id,field,value)
+  #   @model_var = model.find(id)
+  #   @model_var.update_attributes(field: value)
+  # end
 
   # DELETE /tasks/1
   # DELETE /tasks/1.json
@@ -69,6 +69,11 @@ class TasksController < ApplicationController
     end
   end
 
+  def complete
+    @task.update_attribute(:is_complete, true)
+    redirect_to '/welcome'
+  end
+  
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_task
@@ -77,6 +82,6 @@ class TasksController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def task_params
-      params.require(:task).permit(:title, :description, :due_date, :is_complete, :user_id)
+      params.require(:task).permit(:title, :description, :due_date, :is_complete, :user_id, :category)
     end
 end
