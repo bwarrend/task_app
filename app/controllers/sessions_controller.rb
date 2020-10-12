@@ -77,5 +77,9 @@ class SessionsController < ApplicationController
     redirect_to '/welcome'
   end
 
+  def group_by_date
+    User.find_by(id: session[:user_id]).update_attribute(:group_by_date, !User.find_by(id: session[:user_id]).group_by_date)
+    redirect_to '/welcome'
+  end
 
 end

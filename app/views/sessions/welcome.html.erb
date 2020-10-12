@@ -38,6 +38,8 @@
 
     <%= link_to 'Toggle Complete Tasks', 'toggle_show_complete', :class => 'btn btn-dark' %>
     <%= link_to 'Toggle Incomplete Tasks', 'toggle_show_incomplete', :class => 'btn btn-dark' %>
+    
+    <%= link_to 'Group By Date', 'group_by_date', :class => 'btn btn-dark' %>
 
     <table class='table'>
         <thead class='thead-dark'>
@@ -53,6 +55,7 @@
         </thead>
         
 
+        
         <tbody>
             <% users_tasks.each do |task| %>         
                 <% if task.is_complete %>
@@ -63,7 +66,8 @@
                             <td><del><%= task.title %></del></td>
                             <td><del><%= task.description %></del></td>
                             <td><del><%= task.created_at.strftime("%Y-%m-%d") %></del></td>
-                            <td><del><%= task.due_date %></del></td>                        
+
+                            <td><%= task.due_date %></td>                       
 
                             <td><%= link_to 'Show', task, :class => 'btn btn-outline-primary' %></td>
                             <td><%= link_to 'Edit', edit_task_path(task), :class => 'btn btn-outline-warning' %></td>
@@ -77,8 +81,10 @@
                         <td><%= task.category %></td> 
                         <td><%= task.title %></td>
                         <td><%= task.description %></td>
-                        <td><%= task.created_at.strftime("%Y-%m-%d") %></td>
-                        <td><%= task.due_date %></td>
+                        <td><%= task.created_at.strftime("%Y-%m-%d")%></td>
+
+                        <td><%= task.due_date %></td>  
+
                         <td><%= link_to 'Show', task, :class => 'btn btn-outline-primary' %></td>
                         <td><%= link_to 'Edit', edit_task_path(task), :class => 'btn btn-outline-warning' %></td>
                         <td><%= link_to 'Delete', task, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-outline-danger' %></td>
@@ -87,6 +93,9 @@
             </tr>
             <% end %>
         </tbody>
+
+
+
     </table>
 
 

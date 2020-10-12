@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   get '/sort_by_due_date', to: 'sessions#sort_by_due_date'
   get '/toggle_show_complete', to: 'sessions#toggle_show_complete'
   get '/toggle_show_incomplete', to: 'sessions#toggle_show_incomplete'
+  get '/group_by_date', to: 'sessions#group_by_date'
   get '/sort_by_status', to: 'sessions#sort_by_status'
   get '/sort_by_description', to: 'sessions#sort_by_description'
   get '/mark_complete', to: 'tasks#mark_complete'

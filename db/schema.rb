@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_12_022754) do
+ActiveRecord::Schema.define(version: 2020_10_12_035054) do
 
   create_table "tasks", force: :cascade do |t|
     t.string "title"
@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(version: 2020_10_12_022754) do
     t.integer "sort_by"
     t.boolean "show_complete"
     t.boolean "show_incomplete"
+    t.boolean "group_by_date"
   end
 
 end
