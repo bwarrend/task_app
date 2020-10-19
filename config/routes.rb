@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   resources :tasks
-  resources :users, only: [:new, :create]
+  resources :users
   get '', to: 'sessions#welcome'
   get 'login', to: 'sessions#new'
   post 'login', to: 'sessions#create'
@@ -19,4 +19,6 @@ Rails.application.routes.draw do
   get '/sort_by_description', to: 'sessions#sort_by_description'
   get '/mark_complete', to: 'tasks#mark_complete'
   post '/tasks/:id(.:format)', to: 'tasks#complete'
+  get '/users', to: 'users#index'
+
 end

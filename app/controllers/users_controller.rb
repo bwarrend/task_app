@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-
   skip_before_action :authorized, only: [:new, :create]
 
   def new
@@ -13,8 +12,24 @@ class UsersController < ApplicationController
     @user.update_attribute(:show_complete, true)
     @user.update_attribute(:show_incomplete, true)
     @user.update_attribute(:group_by_date, false)
+    @user.update_attribute(:is_admin, false)
     session[:user_id] = @user.id
     redirect_to '/welcome'
+  end
+
+  def index
+    @users = User.all
+    if !current_user.is_admin
+      redirect_to '/welcome'
+    end
+  end
+
+  def destroy
+    User.find(params[:id]).destroy
+    respond_to do |format|
+      format.html { redirect_to users_path }
+      format.json { head :no_content }
+    end
   end
 
 
