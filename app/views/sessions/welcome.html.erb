@@ -6,7 +6,7 @@
 <%
 =end%>
     <% if current_user.is_admin %>
-        <h3>Admin Panel</h3>
+        <h3 class='bg-dark text-white'>Admin Panel</h3>
         <%= link_to 'All Users', 'users', :class => 'btn bg-dark btn-outline-info text-white' %>
         <%= link_to 'All Tasks', 'tasks', :class => 'btn bg-dark btn-outline-info text-white' %>
     <% end %>
@@ -425,7 +425,7 @@
                             <%= f.date_field :due_date %>
                         </div>
                         <div class='d-flex flex-row justify-content-center'>
-                            <%= f.submit "Create New"%>
+                            <%= f.submit "Create New", :class => 'btn bg-dark btn-outline-info text-white' %>
                         </div>
                     </p>
                     <% end %>
@@ -440,7 +440,7 @@
 
 
     <div class='d-flex flex-row justify-content-center'>
-            <%= link_to "Logout", '/logout', method: :get, :class => "btn btn-secondary btn-outline-light btn-sm d-flex flex-row justify-content-end" %>
+            <%= link_to "Logout", '/logout', method: :get, :class => 'btn bg-dark btn-outline-info text-white btn-sm d-flex flex-row justify-content-end' %>
     </div>
 
 

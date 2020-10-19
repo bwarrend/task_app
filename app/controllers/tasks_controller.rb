@@ -5,6 +5,9 @@ class TasksController < ApplicationController
   # GET /tasks.json
   def index
     @tasks = Task.all
+    if !current_user.is_admin
+      redirect_to '/welcome'
+    end
   end
 
   # GET /tasks/1
